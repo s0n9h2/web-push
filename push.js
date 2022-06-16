@@ -1,4 +1,4 @@
-import { setVapidDetails, sendNotification } from "web-push";
+const webpush = require("web-push");
 
 // VAPID keys should only be generated only once.
 const vapidKeys = {
@@ -7,7 +7,7 @@ const vapidKeys = {
   privateKey: "SO4N8Qi3CquPTjALI17qR4yb1qUqknekLCSKYInZisI",
 };
 
-setVapidDetails(
+webpush.setVapidDetails(
   "mailto:example@yourdomain.org",
   vapidKeys.publicKey,
   vapidKeys.privateKey
@@ -15,11 +15,14 @@ setVapidDetails(
 
 // This is the same output of calling JSON.stringify on a PushSubscription
 const pushSubscription = {
-  endpoint: ".....",
+  endpoint:
+    "https://fcm.googleapis.com/fcm/send/faVaTPkdy5Q:APA91bFVUHFi1l5neAdVmL_g82qoZecsOnLax8Rmqy3UDYhoWpZt_h6VVvZHTXfwiDxD-kmQx4oiOkJ9uiBwTv5FObfUPoqomRFPrqszpuquLLftmOJxAIocEW4He39rr5V5OSxCjpd7",
+  expirationTime: null,
   keys: {
-    auth: ".....",
-    p256dh: ".....",
+    auth: "4fJpYj-QvBTH5n8V6EM7DA",
+    p256dh:
+      "BF1lV8snAiwH6aKY-k_OyK9SJj7pGmzBO1q1U30qJYKJVPm4TFCzwyiDf_vIF2itIcVmnk7M5tH16-NgnIFvFLg",
   },
 };
 
-sendNotification(pushSubscription, "Your Push Payload Text");
+webpush.sendNotification(pushSubscription, "Your Push Payload Text");
