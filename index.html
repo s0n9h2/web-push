@@ -11,7 +11,7 @@
     <p id="deviceToken"></p>
 
     <script>
-      async function subscribe() {
+      subscribe = async () => {
         let sw = await navigator.serviceWorker.ready;
         let push = await sw.pushManager.subscribe({
           userVisibleOnly: true,
@@ -21,13 +21,20 @@
         console.log(JSON.stringify(push));
         const token = document.getElementById("deviceToken");
         token.innerHTML = JSON.stringify(push);
-      }
+      };
 
-      if ("serviceWorker" in navigator) {
+      if ("serviceWorker" in navigator && "PushManager" in window) {
+        console.log("Service Worker and Push is supported");
+
         addEventListener("load", async () => {
-          let sw = await navigator.serviceWorker.register("./sw.js");
-          console.log(sw);
+          const sw = await navigator.serviceWorker
+            .register("./sw.js")
+            .catch(function (error) {
+              console.error("Service Worker Error", error);
+            });
         });
+      } else {
+        console.warn("Push messaging is not supported");
       }
     </script>
   </body>
