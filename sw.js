@@ -5,7 +5,7 @@ self.addEventListener("push", (event) => {
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
   var options = {
-    body: "This notification was generated from a push!",
+    body: "Pill my rhythm push notification!",
     icon: "images/example.png",
     badge: "images/badge.png", // android에서만 사용됨
     vibrate: [100, 50, 100],
