@@ -2,29 +2,14 @@
 // self는 서비스 워커 자체를 참조
 self.addEventListener("push", (event) => {
   console.log("[Service Worker] Push Received.");
-  console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-  var options = {
-    body: "Pill my rhythm push notification!",
-    icon: "images/example.png",
-    badge: "images/badge.png", // android에서만 사용됨
-    vibrate: [100, 50, 100],
-    data: {
-      dateOfArrival: Date.now(),
-      primaryKey: "2",
-    },
-    actions: [
-      {
-        action: "explore",
-        title: "Explore this new world",
-        icon: "images/checkmark.png",
-      },
-      { action: "close", title: "Close", icon: "images/xmark.png" },
-    ],
-  };
-
+  const data = event.data.json();
   // 브라우저는 전달된 Promise가 확인될 때까지 서비스 워커를 활성화 및 실행 상태로 유지
-  event.waitUntil(self.registration.showNotification("Hello world!", options));
+  event.waitUntil(
+    self.registration.showNotification(data.title, {
+      body: data.body,
+    })
+  );
 });
 
 self.addEventListener("notificationclick", (event) => {
