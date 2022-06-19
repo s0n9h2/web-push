@@ -1,5 +1,7 @@
 // 서비스 워커에서 발생하는 푸시 이벤트를 수신
 // self는 서비스 워커 자체를 참조
+console.log(typeof window);
+
 self.addEventListener("push", (event) => {
   console.log("[Service Worker] Push Received.");
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
